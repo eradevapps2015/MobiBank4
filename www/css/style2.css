@@ -1005,7 +1005,7 @@ white-space: normal;
 /********************** For IPad *******************************/
 /********************** For IPad *******************************/
 @media only screen 
-and (min-device-width : 768px) 
+and (min-device-width : 768px)and (-webkit-min-device-pixel-ratio: 2)
  {
 map {
   display: block;
