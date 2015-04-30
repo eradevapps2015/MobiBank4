@@ -16,7 +16,7 @@ angular.module('starter.controllers', [])
 
 	 document.addEventListener('deviceready', function () {
 	  //$scope.uuid = $cordovaDevice.getUUID();
-	  
+alert("Device ready In login");
 	  
 	db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS useridinfo (user_id text)");
