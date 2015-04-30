@@ -12,9 +12,14 @@ angular.module('starter.controllers', [])
 
 
 	// *****Begin Show User ID**********
-/*
+
 	 document.addEventListener('deviceready', function () {
 	  $scope.uuid = $cordovaDevice.getUUID();
+	  	 $ionicPopup.alert({
+		  title: 'UUID :'+$scope.uuid,
+		  //template:'From date'
+		  })
+	  /*
 	db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS useridinfo (user_id text)");
 	     var query = "SELECT user_id FROM useridinfo";
@@ -30,8 +35,9 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.error(err);
         });
+        */
  })
- */
+ 
  
 	// *****End Show User ID**********
   //	$rootScope.getServerIp='http://202.40.190.14:8084/'  //For Test
@@ -39,7 +45,7 @@ angular.module('starter.controllers', [])
 	$rootScope.getServerIp='http://202.40.178.58/'  //For Live
 	
 
-		$scope.user = { uname:'era@mybank.com'};
+	//	$scope.user = { uname:'era@mybank.com'};
 		
 
 			 $scope.login1 = function(user) {
