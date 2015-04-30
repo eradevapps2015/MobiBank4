@@ -1,3 +1,4 @@
+var db=null;
 angular.module('starter.controllers', [])
 
 // **************************************Sign In Controller*******************************************************
@@ -15,11 +16,8 @@ angular.module('starter.controllers', [])
 
 	 document.addEventListener('deviceready', function () {
 	  //$scope.uuid = $cordovaDevice.getUUID();
-	  	 $ionicPopup.alert({
-		  title: 'UUID',
-		  //template:'From date'
-		  })
-	  /*
+	  
+	  
 	db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS useridinfo (user_id text)");
 	     var query = "SELECT user_id FROM useridinfo";
@@ -35,7 +33,7 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.error(err);
         });
-        */
+        
  })
  
  
@@ -45,16 +43,76 @@ angular.module('starter.controllers', [])
 	$rootScope.getServerIp='http://202.40.178.58/'  //For Live
 	
 
-	//	$scope.user = { uname:'era@mybank.com'};
+		$scope.user = { uname:'era@mybank.com'};
 		
 
-			 $scope.login1 = function(user) {
-			$state.go('app.welcome');
+			 $scope.login = function(user) {
+			//$state.go('app.welcome');
+			
+										 var query = "SELECT user_id FROM useridinfo where user_id=?";
+										  $cordovaSQLite.execute(db, query,[user.uname]).then(function(res) {
+											if(res.rows.length > 0) {			
+												for(var i=0; i<res.rows.length; i++){
+													
+												//$scope.branch_code_values=	res.rows.item(i).branch_code;				
+												// $scope.results.push(res.rows.items(i));
+												$state.go('app.welcome');	
+												
+												} 
+												
+											} else {
+												
+												
+											 
+														//Begin Else Query
+														var queryUserID = "SELECT user_id FROM useridinfo";
+												 
+													$cordovaSQLite.execute(db, queryUserID).then(function(res) {
+														if(res.rows.length > 0) {			
+															for(var i=0; i<res.rows.length; i++){
+															var uid=res.rows.item(i).user_id;
+															
+															//Begin Update
+															 var queryUserIDUpdate = "UPDATE useridinfo set user_id=? where user_id=?";
+																 $cordovaSQLite.execute(db, queryUserIDUpdate,[user.uname,uid]).then(function(res) {
+																  alert("Updated Successfully");
+																	$state.go('app.welcome');																  
+																}, function (err) {
+																   // console.error(err);
+																	 alert("Error Method");
+																});
+															//End Update
+
+															} 
+															
+														} else {
+														 
+															//Begin For Insert
+																var insertqQuery = "INSERT INTO useridinfo (user_id) VALUES (?)";
+																	 $cordovaSQLite.execute(db, insertqQuery,[user.uname]).then(function(res) {
+																alert("Insert successfully !");
+																$state.go('app.welcome');
+																}, function (err) {
+																   // console.error(err);
+																	 alert("Error Method");
+																});
+															//End For Inser
+														}
+													}, function (err) {
+													   // console.error(err);
+														 alert("Error Method");
+													});
+													//End Else Query
+											}
+										}, function (err) {
+										   // console.error(err);
+											 alert("Error Method");
+										});
 		  };
 		 
 
     
-	$scope.login= function (user) {
+	$scope.login1= function (user) {
 	
        				
 		if(!user || ! user.uname){
