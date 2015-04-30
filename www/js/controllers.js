@@ -14,9 +14,9 @@ angular.module('starter.controllers', [])
 	// *****Begin Show User ID**********
 
 	 document.addEventListener('deviceready', function () {
-	  $scope.uuid = $cordovaDevice.getUUID();
+	  //$scope.uuid = $cordovaDevice.getUUID();
 	  	 $ionicPopup.alert({
-		  title: 'UUID :'+$scope.uuid,
+		  title: 'UUID',
 		  //template:'From date'
 		  })
 	  /*
