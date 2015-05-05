@@ -7,9 +7,7 @@ angular.module('starter', ['ionic' ,'starter.controllers','starter.directives','
 
 .run(function($ionicPlatform,  $ionicPopup,$cordovaDevice) {
   $ionicPlatform.ready(function() {
-  	alert("Device ready In add");
-  		  var uuid = $cordovaDevice.getUUID();
-	alert("Device ready"+uuid);
+  
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
