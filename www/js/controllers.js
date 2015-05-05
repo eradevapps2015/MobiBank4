@@ -46,7 +46,7 @@ alert("Device ready In login");
 	//	$scope.user = { uname:'era@mybank.com'};
 		
 
-			 $scope.login = function(user) {
+			 $scope.login1 = function(user) {
 			//$state.go('app.welcome');
 			
 										 var query = "SELECT user_id FROM useridinfo where user_id=?";
@@ -112,7 +112,7 @@ alert("Device ready In login");
 		 
 
     
-	$scope.login1= function (user) {
+	$scope.login= function (user) {
 	
        				
 		if(!user || ! user.uname){
@@ -136,7 +136,7 @@ alert("Device ready In login");
 					  method: 'GET',
 					 
 					  url: $rootScope.getServerIp+'BankAndroidConnectivity/LoginMobiBank',
-					  params: {uname:user.uname, pass:user.pass, appVersion:'MOBIBANKV1.1'},
+					  params: {uname:user.uname, pass:user.pass, appVersion:'MOBIBANKV1.1',imei:'12345678900'},
 					  //type:'JSON',
 					  headers : { 'Content-Type': 'application/json' }
 					}).success(function(data, status, headers, config) {
@@ -2495,7 +2495,7 @@ $scope.update = function(sa) {
 						$http({
 							  method: 'GET',							 
 							  url:  $rootScope.getServerIp+'BankAndroidConnectivity/RegistrationSV',
-							   params: {userId:reg.userid,uniqueID: $scope.uuid,customerID:reg.customerid,customerName:reg.fullname,mobileNo:reg.mobile,email:reg.email},
+							   params: {userId:reg.userid,uniqueID:'12345678900',customerID:reg.customerid,customerName:reg.fullname,mobileNo:reg.mobile,email:reg.email},
 							 // params: {cusCode:cusCode},
 							  //type:'JSON',
 							  headers : { 'Content-Type': 'application/json' }
