@@ -72,7 +72,7 @@ angular.module('starter.controllers', [])
 					  method: 'GET',
 					 
 					  url: $rootScope.getServerIp+'BankAndroidConnectivity/LoginMobiBank',
-					  params: {uname:user.uname, pass:user.pass, appVersion:'MOBIBANKV1.1',imei:'12345678900'},
+					  params: {uname:user.uname, pass:user.pass, appVersion:'MOBIBANKV1.0',imei:'12345678900'},
 					  //type:'JSON',
 					  headers : { 'Content-Type': 'application/json' }
 					}).success(function(data, status, headers, config) {
