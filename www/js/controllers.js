@@ -1,4 +1,3 @@
-var db=null;
 angular.module('starter.controllers', [])
 
 // **************************************Sign In Controller*******************************************************
@@ -15,9 +14,7 @@ angular.module('starter.controllers', [])
 	// *****Begin Show User ID**********
 /*
 	 document.addEventListener('deviceready', function () {
-	  //$scope.uuid = $cordovaDevice.getUUID();
-alert("Device ready In login");
-	  
+	  $scope.uuid = $cordovaDevice.getUUID();
 	db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS useridinfo (user_id text)");
 	     var query = "SELECT user_id FROM useridinfo";
@@ -33,81 +30,20 @@ alert("Device ready In login");
         }, function (err) {
             console.error(err);
         });
-        
  })
  */
  
 	// *****End Show User ID**********
-  //	$rootScope.getServerIp='http://202.40.190.14:8084/'  //For Test
+  	//$rootScope.getServerIp='http://202.40.190.14:8084/'  //For Test
 	//$rootScope.getServerIp='http://localhost:8084/'  //For Own Pc
 	$rootScope.getServerIp='http://202.40.178.58/'  //For Live
 	
 
-	//	$scope.user = { uname:'era@mybank.com'};
+		//$scope.user = { uname:'era@mybank.com'};
 		
 
 			 $scope.login1 = function(user) {
-			//$state.go('app.welcome');
-			
-										 var query = "SELECT user_id FROM useridinfo where user_id=?";
-										  $cordovaSQLite.execute(db, query,[user.uname]).then(function(res) {
-											if(res.rows.length > 0) {			
-												for(var i=0; i<res.rows.length; i++){
-													
-												//$scope.branch_code_values=	res.rows.item(i).branch_code;				
-												// $scope.results.push(res.rows.items(i));
-												$state.go('app.welcome');	
-												
-												} 
-												
-											} else {
-												
-												
-											 
-														//Begin Else Query
-														var queryUserID = "SELECT user_id FROM useridinfo";
-												 
-													$cordovaSQLite.execute(db, queryUserID).then(function(res) {
-														if(res.rows.length > 0) {			
-															for(var i=0; i<res.rows.length; i++){
-															var uid=res.rows.item(i).user_id;
-															
-															//Begin Update
-															 var queryUserIDUpdate = "UPDATE useridinfo set user_id=? where user_id=?";
-																 $cordovaSQLite.execute(db, queryUserIDUpdate,[user.uname,uid]).then(function(res) {
-																  alert("Updated Successfully");
-																	$state.go('app.welcome');																  
-																}, function (err) {
-																   // console.error(err);
-																	 alert("Error Method");
-																});
-															//End Update
-
-															} 
-															
-														} else {
-														 
-															//Begin For Insert
-																var insertqQuery = "INSERT INTO useridinfo (user_id) VALUES (?)";
-																	 $cordovaSQLite.execute(db, insertqQuery,[user.uname]).then(function(res) {
-																alert("Insert successfully !");
-																$state.go('app.welcome');
-																}, function (err) {
-																   // console.error(err);
-																	 alert("Error Method");
-																});
-															//End For Inser
-														}
-													}, function (err) {
-													   // console.error(err);
-														 alert("Error Method");
-													});
-													//End Else Query
-											}
-										}, function (err) {
-										   // console.error(err);
-											 alert("Error Method");
-										});
+			$state.go('app.welcome');
 		  };
 		 
 
@@ -166,7 +102,7 @@ alert("Device ready In login");
 								  method: 'GET',
 								  
 								  url:  $rootScope.getServerIp+'BankAndroidConnectivity/AccountNumberListSV',
-								  params: {mailID: $rootScope.mailID,sessiongID:$rootScope.sessionID},
+								  params: {mailID: $rootScope.mailID,sessiongID:$rootScope.sessionID,imei:'12345678900'},
 								  //type:'JSON',
 								  headers : { 'Content-Type': 'application/json' }
 								}).success(function(data, status, headers, config) {                  
@@ -965,6 +901,34 @@ $scope.update = function(sa) {
 						})
 			});  
 
+			
+			//Begin OTP
+				$http({
+							  method: 'GET',							 
+							  url:  $rootScope.getServerIp+'BankAndroidConnectivity/OtpSendSV',
+							   params: {mailID:mailID,sessionID:sessionID},
+							 // params: {cusCode:cusCode},
+							  //type:'JSON',
+							  headers : { 'Content-Type': 'application/json' }
+							}).success(function(data, status, headers, config) {
+								//alert("success...");
+									$ionicLoading.hide();
+									$ionicPopup.alert({
+													 title:data.otpBONodes[0].errorMessage,
+															  //template:'From date'
+													})
+									
+								//alert($rootScope.responseArr.toString);
+							}).error(function(data, status, headers, config) {
+								 $ionicLoading.hide();
+								$ionicPopup.alert({
+								 title:'Unable to perform your request. Please Check your Device Internet Connection',
+										  //template:'From date'
+								})
+							}); 
+							
+							//End Otp
+			
 				$timeout(function() {
 				 $ionicLoading.hide();
 			   }, 3000);
@@ -1240,7 +1204,36 @@ $scope.update = function(sa) {
 						title:'Unable to perform your request. Please Check your Device Internet Connection',
 										  //template:'From date'
 					})
-			});  
+			}); 
+
+
+				
+			//Begin OTP
+				$http({
+							  method: 'GET',							 
+							  url:  $rootScope.getServerIp+'BankAndroidConnectivity/OtpSendSV',
+							   params: {mailID:mailID,sessionID:sessionID},
+							 // params: {cusCode:cusCode},
+							  //type:'JSON',
+							  headers : { 'Content-Type': 'application/json' }
+							}).success(function(data, status, headers, config) {
+								//alert("success...");
+									$ionicLoading.hide();
+									$ionicPopup.alert({
+													 title:data.otpBONodes[0].errorMessage,
+															  //template:'From date'
+													})
+									
+								//alert($rootScope.responseArr.toString);
+							}).error(function(data, status, headers, config) {
+								 $ionicLoading.hide();
+								$ionicPopup.alert({
+								 title:'Unable to perform your request. Please Check your Device Internet Connection',
+										  //template:'From date'
+								})
+							}); 
+							
+							//End Otp
 
 				$timeout(function() {
 				 $ionicLoading.hide();
