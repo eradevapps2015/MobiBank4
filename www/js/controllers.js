@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
 
 
 	// *****Begin Show User ID**********
-
+/*
 	 document.addEventListener('deviceready', function () {
 	  //$scope.uuid = $cordovaDevice.getUUID();
 alert("Device ready In login");
@@ -35,7 +35,7 @@ alert("Device ready In login");
         });
         
  })
- 
+ */
  
 	// *****End Show User ID**********
   //	$rootScope.getServerIp='http://202.40.190.14:8084/'  //For Test
@@ -43,7 +43,7 @@ alert("Device ready In login");
 	$rootScope.getServerIp='http://202.40.178.58/'  //For Live
 	
 
-		$scope.user = { uname:'era@mybank.com'};
+	//	$scope.user = { uname:'era@mybank.com'};
 		
 
 			 $scope.login = function(user) {
