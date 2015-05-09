@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
 	// **************************************Sign In Controller*******************************************************
 	// **************************************Sign In Controller*******************************************************
 	
-	.controller('SignInCtrl', function($scope, $state, $http, $rootScope, $ionicLoading, $timeout,$ionicPopup,$filter,$cordovaSQLite,$cordovaDevice) {
+	.controller('SignInCtrl', function($scope, $ionicPlatform, $state, $http, $rootScope, $ionicLoading, $timeout,$ionicPopup,$filter,$cordovaSQLite,$cordovaDevice) {
 	//$urlRouterProvider.otherwise("/welcome/home");
 	
 	
@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
 
 	// *****Begin Show User ID**********
 
-	 document.addEventListener('deviceready', function () {
+  $ionicPlatform.ready(function() {
 	 //alert("controller");
 	  $scope.uuid = $cordovaDevice.getUUID();
 	  alert("Deviec uuid"+ $scope.uuid);
