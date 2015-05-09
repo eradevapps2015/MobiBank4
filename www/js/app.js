@@ -7,6 +7,9 @@ angular.module('starter', ['ionic' ,'starter.controllers','starter.directives','
 
 .run(function($ionicPlatform,  $ionicPopup,$cordovaDevice) {
   $ionicPlatform.ready(function() {
+  	  alert("App Controller");
+  	$scope.uuid = $cordovaDevice.getUUID();
+	  alert("App Controlle"+ $scope.uuid);
   
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
