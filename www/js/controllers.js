@@ -13,8 +13,8 @@ angular.module('starter.controllers', [])
 
 	// *****Begin Show User ID**********
 
-  $ionicPlatform.ready(function() {
-	 alert("controller");
+  document.addEventListener('deviceready', function () {
+	 alert("controller cccccccccccccccccccc");
 	  $scope.uuid = $cordovaDevice.getUUID();
 	  alert("Deviec uuid"+ $scope.uuid);
 	db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
