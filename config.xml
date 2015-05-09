@@ -19,5 +19,6 @@
   </feature>
   <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.6" />
   <gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid"  version="1.2.0" />
-  <gap:plugin name="it.adacto.cordova.device" version="0.1" />
+ <!-- <gap:plugin name="it.adacto.cordova.device" version="0.1" />-->
+   <gap:plugin name="org.apache.cordova.device" />
 </widget>
