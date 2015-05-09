@@ -17,7 +17,7 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-  <gap:plugin name="com.brodysoft.sqliteplugin" />
+  <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.6" />
   <gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid"  />
   <gap:plugin name="it.adacto.cordova.device" version="0.1" />
 </widget>
