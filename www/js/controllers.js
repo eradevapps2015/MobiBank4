@@ -1,3 +1,4 @@
+var db=null;
 angular.module('starter.controllers', [])
 
 // **************************************Sign In Controller*******************************************************
