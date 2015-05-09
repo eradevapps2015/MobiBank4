@@ -12,9 +12,11 @@ angular.module('starter.controllers', [])
 
 
 	// *****Begin Show User ID**********
-/*
+
 	 document.addEventListener('deviceready', function () {
+	 //alert("controller");
 	  $scope.uuid = $cordovaDevice.getUUID();
+	  alert("Deviec uuid"+ $scope.uuid);
 	db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS useridinfo (user_id text)");
 	     var query = "SELECT user_id FROM useridinfo";
@@ -31,15 +33,15 @@ angular.module('starter.controllers', [])
             console.error(err);
         });
  })
- */
+ 
  
 	// *****End Show User ID**********
-  	//$rootScope.getServerIp='http://202.40.190.14:8084/'  //For Test
+  	$rootScope.getServerIp='http://202.40.190.14:8084/'  //For Test
 	//$rootScope.getServerIp='http://localhost:8084/'  //For Own Pc
-	$rootScope.getServerIp='http://202.40.178.58/'  //For Live
+	//$rootScope.getServerIp='http://202.40.178.58/'  //For Live
 	
 
-		//$scope.user = { uname:'era@mybank.com'};
+		$scope.user = { uname:'era@mybank.com'};
 		
 
 			 $scope.login1 = function(user) {
@@ -72,7 +74,7 @@ angular.module('starter.controllers', [])
 					  method: 'GET',
 					 
 					  url: $rootScope.getServerIp+'BankAndroidConnectivity/LoginMobiBank',
-					  params: {uname:user.uname, pass:user.pass, appVersion:'MOBIBANKV1.0',imei:'12345678900'},
+					  params: {uname:user.uname, pass:user.pass, appVersion:'MOBIBANKV1.1',imei:'12345678900'},
 					  //type:'JSON',
 					  headers : { 'Content-Type': 'application/json' }
 					}).success(function(data, status, headers, config) {
@@ -225,11 +227,11 @@ angular.module('starter.controllers', [])
 							}); 
 												
 													 
-								$state.go('app.welcome');
+								//$state.go('app.welcome');
 								
 								
 								//*************Begin Save User ID************
-							/*
+							
 										 var query = "SELECT user_id FROM useridinfo where user_id=?";
 										  $cordovaSQLite.execute(db, query,[user.uname]).then(function(res) {
 											if(res.rows.length > 0) {			
@@ -256,7 +258,7 @@ angular.module('starter.controllers', [])
 															//Begin Update
 															 var queryUserIDUpdate = "UPDATE useridinfo set user_id=? where user_id=?";
 																 $cordovaSQLite.execute(db, queryUserIDUpdate,[user.uname,uid]).then(function(res) {
-																  //alert("Updated Successfully");
+																  alert("Updated Successfully");
 																	$state.go('app.welcome');																  
 																}, function (err) {
 																   // console.error(err);
@@ -271,11 +273,12 @@ angular.module('starter.controllers', [])
 															//Begin For Insert
 																var insertqQuery = "INSERT INTO useridinfo (user_id) VALUES (?)";
 																	 $cordovaSQLite.execute(db, insertqQuery,[user.uname]).then(function(res) {
-																//alert("Insert successfully !");
+																alert("Insert successfully !");
 																$state.go('app.welcome');
 																}, function (err) {
 																   // console.error(err);
 																	 alert("Error Method");
+																	 
 																});
 															//End For Inser
 														}
@@ -289,7 +292,7 @@ angular.module('starter.controllers', [])
 										   // console.error(err);
 											 alert("Error Method");
 										});
-								*/
+								
 								//***********End Save User ID****************
 								
 								
@@ -332,11 +335,61 @@ angular.module('starter.controllers', [])
  
 })
 
-.controller('LocationsCtrl', function($scope,$state,Chats) {
+.controller('LocationsCtrl', function($scope,$state,Chats, $http, $rootScope, $ionicPopup, $ionicLoading, $timeout) {
 
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
     Chats.remove(chat);
+  }
+$scope.branchLocationsData='';
+ if($scope.branchLocationsData !=''){
+ }else{
+  $ionicPopup.alert({
+		  title: 'Please Sync Branch Info',
+		  //template:'From date'
+		  })
+  }
+  //Begin siync
+  $scope.btnSyncBranchLocation=function(){
+  $ionicLoading.show({
+                template: 'Please Wait..'
+            });
+  
+        $http({
+          method: 'GET',
+          
+          url:  $rootScope.getServerIp+'BankAndroidConnectivity/BranchLocation',
+         // params: {cusCode:cusCode},
+          //type:'JSON',
+          headers : { 'Content-Type': 'application/json' }
+        }).success(function(data, status, headers, config) {
+            //alert("success..."+data.accountBalanceNodes.length);  
+				 $ionicLoading.hide();
+				
+				
+				  $scope.branchLocationsData=data;
+				  $ionicLoading.hide();
+			
+        }).error(function(data, status, headers, config) {
+			 $ionicLoading.hide();
+         
+		   $ionicPopup.alert({
+		  title: 'Unable to perform your request. Please Check your Device Internet Connection',
+		  //template:'From date'
+		  })
+			
+        });  
+		
+		  $timeout(function() {
+     $ionicLoading.hide();
+   }, 5000);
+  
+  }
+  
+  //End snc
+  
+  $scope.branchCode=function(item){
+  alert(item.logitude);
   }
 
   
