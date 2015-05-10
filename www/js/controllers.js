@@ -8,9 +8,9 @@ angular.module('starter.controllers', [])
 	
 	.controller('SignInCtrl', function($scope, $ionicPlatform, $state, $http, $rootScope, $ionicLoading, $timeout,$ionicPopup,$filter,$cordovaSQLite,$cordovaDevice) {
 	//$urlRouterProvider.otherwise("/welcome/home");
- alert("Deviec uuid");
-	  $scope.uuid = $cordovaDevice.getUUID();
-	  alert("Deviec uuid"+ $scope.uuid);
+ //alert("Deviec uuid");
+	  //$scope.uuid = $cordovaDevice.getUUID();
+	  //alert("Deviec uuid"+ $scope.uuid);
 
 
 	// *****Begin Show User ID**********
